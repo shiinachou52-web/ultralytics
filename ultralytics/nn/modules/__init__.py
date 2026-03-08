@@ -16,9 +16,7 @@ Examples:
     >>> torch.onnx.export(m, x, f)
     >>> subprocess.run(f"onnxslim {f} {f} && open {f}", shell=True, check=True)  # pip install onnxslim
 """
-
-from .block import (# --- 形状感知模块 (SA_C3k2) 开始 ---
-
+from .block import DSConv_Simple, SA_Bottleneck, SA_C3k2  # 确保包含你所有的自定义模块
 class SA_C3k2(C3k2): 
     """基于形状感知的 C3k2 模块，用于提升细小病灶（如甲状腺结节）的检测精度。"""
     def __init__(self, c1, c2, n=1, shortcut=False, g=1, e=0.5):
