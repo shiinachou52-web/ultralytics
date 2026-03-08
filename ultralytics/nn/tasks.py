@@ -36,6 +36,7 @@ from ultralytics.nn.modules import (
     C2fPSA,
     C3Ghost,
     C3k2,
+    SA_C3k2,
     C3x,
     CBFuse,
     CBLinear,
@@ -1591,6 +1592,7 @@ def parse_model(d, ch, verbose=True):
             C2,
             C2f,
             C3k2,
+            SA_C3k2,
             RepNCSPELAN4,
             ELAN1,
             ADown,
@@ -1617,6 +1619,7 @@ def parse_model(d, ch, verbose=True):
             C2,
             C2f,
             C3k2,
+            SA_C3k2,
             C2fAttn,
             C3,
             C3TR,
@@ -1654,7 +1657,7 @@ def parse_model(d, ch, verbose=True):
             if m in repeat_modules:
                 args.insert(2, n)  # number of repeats
                 n = 1
-            if m is C3k2:  # for M/L/X sizes
+            if m in (C3k2, SA_C3k2):  # <--- 修改点 3：改为元组判断
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
